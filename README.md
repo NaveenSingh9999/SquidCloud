@@ -14,7 +14,7 @@
 
 > **SquidCloud** is a next-generation, privacy-first cloud storage solution powered by the **Res54 Distributed Architecture**. Uncapped storage capacity, military-grade end-to-end encryption, and unparalleled performance — all seamlessly integrated into a modern web, desktop, and mobile ecosystem.
 
-***Warning -** This Repository is an showcase repo not an actual codebase, please first read [https://github.com/NaveenSingh9999/SquidCloud/NOTICE.md](NOTICE.md) immediately , highly recommended for viewers.*
+***Warning -** This Repository is an showcase repo not an actual codebase, please first read [NOTICE.md](https://github.com/NaveenSingh9999/SquidCloud/NOTICE.md) immediately , highly recommended for viewers.*
 
 ---
 
