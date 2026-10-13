@@ -1,9 +1,9 @@
 <div align="center">
   <img src="./public/logo.svg" alt="SquidCloud" width="120" />
   <h1>SquidCloud</h1>
-  <p><strong>Secure, Unlimited Cloud Storage Platform — <em>v12.0.18</em></strong></p>
+  <p><strong>Secure, Unlimited Cloud Storage Platform — <em>v12.0.23</em></strong></p>
 
-  [![Version](https://img.shields.io/badge/version-12.0.18-blue.svg)](https://squidcloud.vercel.app)
+  [![Version](https://img.shields.io/badge/version-12.0.23-blue.svg)](https://squidcloud.vercel.app)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?logo=typescript)](https://www.typescriptlang.org/)
   [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://reactjs.org/)
@@ -14,23 +14,52 @@
 
 > **SquidCloud** is a next-generation, privacy-first cloud storage solution powered by the **Res54 Distributed Architecture**. Uncapped storage capacity, military-grade end-to-end encryption, and high-performance delivery — all seamlessly integrated into a modern web, desktop, and mobile ecosystem.
 
+![SquidCloud homepage](./public/showcase-home.jpg)
+
 ---
 
 ## Latest Version
 
 | Component | Version | Status |
 |---|---|---|
-| Web Platform | 12.0.18 | ✅ Live |
+| Web Platform | 12.0.23 | ✅ Live |
 | Android APK | 11.1.0 | ✅ Available |
 | SquidLab SDK | 1.1.0 | ✅ Stable |
 
-Current release: **v12.0.18** — [squidcloud.vercel.app](https://squidcloud.vercel.app)
+Current release: **v12.0.23** — [squidcloud.vercel.app](https://squidcloud.vercel.app)
+
+---
+
+## What's New in v12.0.23
+
+The short version: books work end to end, old files open again, uploads and downloads got faster and more honest, dispersal storage now uses the real internet, and the whole product speaks one design language.
+
+**DeepRead books, fixed properly**
+The book catalog loads reliably from three public sources, covers actually show up, and the list only shows editions you can download and keep for free — rental and borrow-only scans are hidden. Saving a book to your storage works, saved books appear in your library right away, and the Read Now dialog opens centered on every screen.
+
+**Transfers, redesigned**
+The upload/download panel and the full transfer center were rebuilt in the same visual language as the rest of the site. One progress readout per file, honest error messages, live speed, and a calm layout instead of duplicated bars.
+
+**Every file opens, no matter its age**
+Files uploaded long ago — from the CLI, from migrations, from older app versions — open in the dashboard again. All upload and download paths now use the same encryption format, and storage usage is tracked per bucket so limits mean something.
+
+**Real internet dispersal (SDE beta)**
+Dispersed uploads now actually leave your device: encrypted pieces go to Nostr relays and file hosts across the internet, with local copies as backup. Uploads run chunks in parallel over reused connections, so large files finish in minutes instead of stalling.
+
+**Quieter reliability work**
+Downloads repair themselves when storage links break, chunk fetching gives up fast on dead links instead of hanging, and catalog searches no longer die when one provider has a bad day.
+
+**Blackox — one design language everywhere**
+Blackox is the design system behind every SquidCloud page. Near-black ink, bone-white type, hairline rules, small corners, mono labels, and a single motion curve. The landing page, pricing, settings, file dialogs, and transfer panels all speak it now, so nothing feels bolted on.
+
+Full details live in the app under Help → Patch Notes.
 
 ---
 
 ## Table of Contents
 
 - [What is SquidCloud?](#what-is-squidcloud)
+- [What's New in v12.0.23](#whats-new-in-v12023)
 - [Key Features](#key-features)
 - [Storage Options](#storage-options)
 - [How It Works](#how-it-works)
@@ -38,6 +67,7 @@ Current release: **v12.0.18** — [squidcloud.vercel.app](https://squidcloud.ver
 - [Security](#security)
 - [Getting Started](#getting-started)
 - [Mobile & Desktop](#mobile--desktop)
+- [SquidFS — Mount as Local Disk](#squidfs--mount-as-local-disk)
 - [Legal](#legal)
 
 ---
@@ -193,12 +223,56 @@ The SquidCloud CLI supports automation and scripting via your API key. See the C
 
 | Platform | Version | Status |
 |---|---|---|
-| Web (PWA) | 12.0.18 | ✅ Live |
+| Web (PWA) | 12.0.23 | ✅ Live |
 | Android (APK) | 11.1.0 | ✅ Available |
 | iOS | — | Planned |
 | Desktop (Electron) | — | Planned |
 
 The Android app is built with Capacitor and distributed as a signed APK. It supports full feature parity with the web platform including BYOS, BYOK, file upload with background worker, and OAuth sign-in.
+
+---
+
+## SquidFS — Mount as Local Disk
+
+**SquidFS** lets you mount your SquidCloud storage as a local filesystem on any operating system. Access your files directly from your file manager, terminal, or any application — just like a local hard drive.
+
+| Platform | Method | Status |
+|---|---|---|
+| Linux (x86_64, ARM64) | FUSE | ✅ Available |
+| macOS (Intel, Apple Silicon) | FUSE | ✅ Available |
+| Windows (x86_64, ARM64) | WebDAV | ✅ Available |
+| Termux / Android | WebDAV | ✅ Available |
+
+### Quick Start
+
+```bash
+# Linux / macOS (FUSE)
+squidfs -key cb_your_api_key_here -mount /mnt/squidfs
+
+# Windows / Termux (WebDAV)
+squidfs -key cb_your_api_key_here -webdav
+```
+
+### Features
+
+- **FUSE on Linux/macOS** — Native filesystem performance with kernel-level caching
+- **WebDAV fallback** — Works everywhere, including Windows and Termux
+- **BYOK encryption** — Optional Bring Your Own Key for zero-knowledge access
+- **V3 HKDF key hierarchy** — Per-file and per-chunk key derivation
+- **Local cache** — Smart caching with LRU eviction for fast repeated access
+- **Cross-platform** — Pre-built binaries for all major architectures
+
+### Installation
+
+Download the latest binary for your platform from the [releases page](https://github.com/NaveenSingh9999/squidfs/releases) or build from source:
+
+```bash
+git clone https://github.com/NaveenSingh9999/squidfs.git
+cd squidfs
+make install
+```
+
+For full documentation, visit [squidcloud.vercel.app/squidfs](https://squidcloud.vercel.app/squidfs).
 
 ---
 
@@ -231,5 +305,5 @@ See the SDK repository for full documentation and examples.
     <a href="https://squidcloud.vercel.app/terms">Terms</a> ·
     <a href="mailto:hellosquidcloud@gmail.com">Contact</a>
   </p>
-  <p><i>SquidCloud v12.0.18</i></p>
+  <p><i>SquidCloud v12.0.23</i></p>
 </div>
